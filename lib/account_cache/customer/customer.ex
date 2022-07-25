@@ -20,6 +20,7 @@ defmodule AccountCache.Customer do
     %Customer.AccountEvent{}
     |> Customer.AccountEvent.changeset(attrs)
     |> Repo.insert()
+    |> add_to_ets()
   end
 
   defp with_balance(accounts) do
@@ -57,5 +58,11 @@ defmodule AccountCache.Customer do
         end
     end)
     |> Float.round(2)
+  end
+
+  defp add_to_ets({:ok, %Customer.AccountEvent{account_id: account_id}} = result) do
+    Customer.EventETS.add_event(AccountCache.Customer.EventETS, account_id)
+
+    result
   end
 end
