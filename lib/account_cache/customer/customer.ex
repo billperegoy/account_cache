@@ -6,6 +6,8 @@ defmodule AccountCache.Customer do
     |> Repo.all()
     |> Repo.preload(:events)
     |> with_balance()
+    |> Enum.reject(&(&1.balance == 0.0))
+    |> Enum.sort_by(& &1.balance, :desc)
   end
 
   def create_event(attrs) do
@@ -16,7 +18,24 @@ defmodule AccountCache.Customer do
 
   defp with_balance(accounts) do
     Enum.map(accounts, fn account ->
-      %{account | balance: balance_for(account)}
+      credit_events =
+        account
+        |> Map.get(:events)
+        |> Enum.filter(&(&1.type == :credit))
+        |> Enum.count()
+
+      debit_events =
+        account
+        |> Map.get(:events)
+        |> Enum.filter(&(&1.type == :debit))
+        |> Enum.count()
+
+      %{
+        account
+        | balance: balance_for(account),
+          credit_events: credit_events,
+          debit_events: debit_events
+      }
     end)
   end
 
