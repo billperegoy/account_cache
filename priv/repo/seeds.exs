@@ -2,10 +2,13 @@
 #
 #     mix run priv/repo/seeds.exs
 #
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     AccountCache.Repo.insert!(%AccountCache.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
+AccountCache.Repo.insert!(%AccountCache.Customer.Account{name: "Jim Palmer"})
+AccountCache.Repo.insert!(%AccountCache.Customer.Account{name: "Eddie Watt"})
+AccountCache.Repo.insert!(%AccountCache.Customer.Account{name: "Elrod Hendricks"})
+AccountCache.Repo.insert!(%AccountCache.Customer.Account{name: "Boog Powell"})
+AccountCache.Repo.insert!(%AccountCache.Customer.Account{name: "Dave Johnson"})
+AccountCache.Repo.insert!(%AccountCache.Customer.Account{name: "Brooks Robinson"})
+AccountCache.Repo.insert!(%AccountCache.Customer.Account{name: "Mark Belanger"})
+AccountCache.Repo.insert!(%AccountCache.Customer.Account{name: "Frank Robinson"})
+AccountCache.Repo.insert!(%AccountCache.Customer.Account{name: "Paul Blair"})
+AccountCache.Repo.insert!(%AccountCache.Customer.Account{name: "Don Buford"})
