@@ -18,7 +18,8 @@ defmodule AccountCache.Application do
       AccountCacheWeb.Endpoint,
       # Start a worker by calling: AccountCache.Worker.start_link(arg)
       # {AccountCache.Worker, arg}
-      AccountCache.Customer.TrafficGenerator
+      AccountCache.Customer.TrafficGenerator,
+      AccountCache.Customer.AccountETS
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

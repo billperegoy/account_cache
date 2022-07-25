@@ -4,7 +4,8 @@ defmodule AccountCacheWeb.AccountController do
   alias AccountCache.{Customer, Repo}
 
   def index(conn, _params) do
-    accounts = Customer.list_accounts()
+    accounts = Customer.list_cached_accounts()
+
     render(conn, "index.html", accounts: accounts)
   end
 end
