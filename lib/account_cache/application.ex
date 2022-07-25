@@ -15,9 +15,10 @@ defmodule AccountCache.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: AccountCache.PubSub},
       # Start the Endpoint (http/https)
-      AccountCacheWeb.Endpoint
+      AccountCacheWeb.Endpoint,
       # Start a worker by calling: AccountCache.Worker.start_link(arg)
       # {AccountCache.Worker, arg}
+      AccountCache.Customer.TrafficGenerator
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

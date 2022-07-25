@@ -12,4 +12,12 @@ defmodule AccountCache.Customer.AccountEvent do
 
     timestamps(type: :utc_datetime_usec)
   end
+
+  def changeset(event, attrs) do
+    required = [:type, :amount, :account_id]
+
+    event
+    |> cast(attrs, required)
+    |> validate_required(required)
+  end
 end
