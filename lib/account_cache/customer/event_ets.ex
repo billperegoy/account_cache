@@ -12,8 +12,9 @@ defmodule AccountCache.Customer.EventETS do
     IO.puts("In add_event with #{account_id}")
     :ets.insert(:events, {"#{account_id}", nil})
 
-    :ets.match(:events, :"$1")
-    |> IO.inspect(label: "event accounts")
+    ## FIXME - remove this debug
+    # :ets.match(:events, :"$1")
+    # |> IO.inspect(label: "event accounts")
   end
 
   # Server (callbacks)
