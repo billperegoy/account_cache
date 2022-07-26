@@ -1,7 +1,7 @@
 defmodule AccountCache.Customer.AccountETS do
   use GenServer
 
-  alias AccountCache.{Customer, Repo}
+  alias AccountCache.Customer
 
   # Client
   def start_link(_) do
@@ -14,11 +14,10 @@ defmodule AccountCache.Customer.AccountETS do
     IO.puts("Initializing Account ETS")
     :ets.new(:accounts, [:bag, :public, :named_table])
 
-    accounts =
-      Customer.list_accounts()
-      |> Enum.each(fn account ->
-        :ets.insert(:accounts, {"#{account.id}", account})
-      end)
+    Customer.list_accounts()
+    |> Enum.each(fn account ->
+      :ets.insert(:accounts, {"#{account.id}", account})
+    end)
 
     IO.puts("Done filling accounts ETS")
 

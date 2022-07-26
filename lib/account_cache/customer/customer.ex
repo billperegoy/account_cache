@@ -3,16 +3,13 @@ defmodule AccountCache.Customer do
   import Ecto.Query, warn: false
 
   def list_cached_accounts do
-    accounts =
-      :ets.match(:accounts, :"$1")
-      |> Enum.map(fn [{_id, account}] -> account end)
-      |> Enum.reject(&(&1.balance == 0.0))
-      |> Enum.sort_by(& &1.balance, :desc)
+    :ets.match(:accounts, :"$1")
+    |> Enum.map(fn [{_id, account}] -> account end)
+    |> Enum.reject(&(&1.balance == 0.0))
+    |> Enum.sort_by(& &1.balance, :desc)
   end
 
   def list_accounts(ids) do
-    IO.inspect(ids)
-
     from(account in Customer.Account, where: account.id in ^ids)
     |> Repo.all()
     |> Repo.preload(:events)

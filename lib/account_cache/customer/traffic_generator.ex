@@ -3,6 +3,8 @@ defmodule AccountCache.Customer.TrafficGenerator do
 
   alias AccountCache.{Customer, Repo}
 
+  @event_interval Application.fetch_env!(:account_cache, :event_interval)
+
   # Client
   def start_link(_) do
     GenServer.start_link(__MODULE__, nil)
@@ -18,7 +20,6 @@ defmodule AccountCache.Customer.TrafficGenerator do
 
   @impl true
   def handle_info(:gen_traffic, _) do
-    IO.puts("Adding an event")
     add_event()
     schedule_next()
 
@@ -41,6 +42,6 @@ defmodule AccountCache.Customer.TrafficGenerator do
 
   defp schedule_next do
     # Schedule every 2 seconds
-    Process.send_after(self(), :gen_traffic, 2 * 1000)
+    Process.send_after(self(), :gen_traffic, @event_interval)
   end
 end

@@ -1,6 +1,5 @@
 defmodule AccountCache.Customer.Account do
   use Ecto.Schema
-  import Ecto.Changeset
 
   alias AccountCache.Customer
 

@@ -17,7 +17,7 @@ defmodule AccountCacheWeb.Router do
   scope "/", AccountCacheWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", AccountController, :index
     resources "/accounts", AccountController, only: [:index]
   end
 

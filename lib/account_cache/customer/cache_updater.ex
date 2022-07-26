@@ -1,7 +1,9 @@
 defmodule AccountCache.Customer.CacheUpdater do
   use GenServer
 
-  alias AccountCache.{Customer, Repo}
+  alias AccountCache.Customer
+
+  @cache_update_interval Application.fetch_env!(:account_cache, :cache_update_interval)
 
   # Client
   def start_link(_) do
@@ -25,11 +27,11 @@ defmodule AccountCache.Customer.CacheUpdater do
   end
 
   defp update_cache do
-    IO.puts("updating accounts cache")
+    IO.puts("Updating accounts cache")
     events = :ets.match(:events, :"$1")
 
     :ets.delete_all_objects(:events)
-    # TODO - Update the cache for only the accounts with events
+
     events
     |> Enum.map(fn [{id, _}] -> id end)
     |> Customer.list_accounts()
@@ -40,6 +42,6 @@ defmodule AccountCache.Customer.CacheUpdater do
 
   defp schedule_next do
     # Schedule every 2 minutes
-    Process.send_after(self(), :update_cache, 2 * 60 * 1000)
+    Process.send_after(self(), :update_cache, @cache_update_interval)
   end
 end

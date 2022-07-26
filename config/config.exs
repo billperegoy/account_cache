@@ -10,6 +10,10 @@ import Config
 config :account_cache,
   ecto_repos: [AccountCache.Repo]
 
+config :account_cache,
+  cache_update_interval: 2 * 60 * 1000,
+  event_interval: 2 * 1000
+
 # Configures the endpoint
 config :account_cache, AccountCacheWeb.Endpoint,
   url: [host: "localhost"],
