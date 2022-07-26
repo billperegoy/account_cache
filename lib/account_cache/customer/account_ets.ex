@@ -12,7 +12,7 @@ defmodule AccountCache.Customer.AccountETS do
   @impl true
   def init(_) do
     IO.puts("Initializing Account ETS")
-    :ets.new(:accounts, [:bag, :public, :named_table])
+    :ets.new(:accounts, [:set, :public, :named_table])
 
     Customer.list_accounts()
     |> Enum.each(fn account ->

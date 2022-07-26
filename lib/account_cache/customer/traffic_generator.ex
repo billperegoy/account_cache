@@ -14,20 +14,22 @@ defmodule AccountCache.Customer.TrafficGenerator do
   @impl true
   def init(_) do
     IO.puts("Initializing Traffic Generator")
+
+    accounts = Repo.all(Customer.Account)
+
     schedule_next()
-    {:ok, nil}
+    {:ok, accounts}
   end
 
   @impl true
-  def handle_info(:gen_traffic, _) do
-    add_event()
+  def handle_info(:gen_traffic, accounts) do
+    add_event(accounts)
     schedule_next()
 
-    {:noreply, nil}
+    {:noreply, accounts}
   end
 
-  defp add_event do
-    accounts = Repo.all(Customer.Account)
+  defp add_event(accounts) do
     account_count = Enum.count(accounts)
     random_index = Enum.random(0..(account_count - 1))
 

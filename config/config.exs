@@ -12,7 +12,7 @@ config :account_cache,
 
 config :account_cache,
   cache_update_interval: 2 * 60 * 1000,
-  event_interval: 2 * 1000
+  event_interval: 200
 
 # Configures the endpoint
 config :account_cache, AccountCacheWeb.Endpoint,
