@@ -41,6 +41,13 @@ much smaller subset of accounts at this interval.
 * At application startup, compute and cache the account balance for all accounts
   with a balance. This is a big operation but the same as the operation that was
 being done on-demand when users requested it previously.
+* This application also contains a genserver that is intended to emulate traffic
+  to either add charges (debit) or create payments (credit). This generates a
+random transaction several times per second to approximate real user traffic.
+* There is a single page that shows the accounts sorted by amount owed. This is
+  built from the cached data so no matter how often you update the page, you
+will see what was last cached. In this example, you will be new data every two
+minutes.
 
 ## Issues
 * Should we use ETS? This may be a problem as we want a cache that is available
