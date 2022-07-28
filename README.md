@@ -45,3 +45,8 @@ being done on-demand when users requested it previously.
 ## Issues
 * Should we use ETS? This may be a problem as we want a cache that is available
   across nodes in the clustered situation.
+* I am using a genserver to create the ETS cache, but then allowing the business
+  logic to directly read/write the ETS. This means that the ETS needs to be
+declared as public. But it also means that we can not have all events funneled
+through the genserver mailbox and get the speed advantage of that. Does this
+make sense?
